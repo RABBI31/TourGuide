@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
 import userRoute from './routes/user.js';
+import tourRoute from './routes/tour.js';
  
 //mongodb+srv://rabbi31:<password>@cluster0.6kr3djy.mongodb.net/?retryWrites=true&w=majority
 const app = express()
@@ -22,7 +23,7 @@ app.use('/users',userRoute);
 app.get("/", (req, res) => {
     res.send("Welcome to tour API");
   });
-
+  app.use('/tour',tourRoute);
 const MONGODB_URL ='mongodb+srv://rabbi31:Rabbi987@cluster0.6kr3djy.mongodb.net/tour_db?retryWrites=true&w=majority'
 
 mongoose.connect(MONGODB_URL).then(()=>{
