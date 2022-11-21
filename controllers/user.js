@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import UserModal from "../models/user.js";
@@ -28,7 +28,7 @@ export const signin = async (req, res) => {
     console.log(error);
   }
 };
-//signup
+
 export const signup = async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
   try {
@@ -52,25 +52,26 @@ export const signup = async (req, res) => {
     console.log(error);
   }
 };
-// export const googleSignIn = async (req, res) => {
-//   const { email, name, token, googleId } = req.body;
 
-//   try {
-//     const oldUser = await UserModal.findOne({ email });
-//     if (oldUser) {
-//       const result = { _id: oldUser._id.toString(), email, name };
-//       return res.status(200).json({ result, token });
-//     }
+export const googleSignIn = async (req, res) => {
+  const { email, name, token, googleId } = req.body;
 
-//     const result = await UserModal.create({
-//       email,
-//       name,
-//       googleId,
-//     });
+  try {
+    const oldUser = await UserModal.findOne({ email });
+    if (oldUser) {
+      const result = { _id: oldUser._id.toString(), email, name };
+      return res.status(200).json({ result, token });
+    }
 
-//     res.status(200).json({ result, token });
-//   } catch (error) {
-//     res.status(500).json({ message: "Something went wrong" });
-//     console.log(error);
-//   }
-// };
+    const result = await UserModal.create({
+      email,
+      name,
+      googleId,
+    });
+
+    res.status(200).json({ result, token });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
+  }
+};
